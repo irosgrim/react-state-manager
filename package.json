@@ -1,17 +1,21 @@
 {
   "name": "@irosgrim/react-state-manager",
   "private": false,
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/index.js",
   "license": "MIT",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/",
     "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/irosgrim/react-state-manager.git"
   },
   "scripts": {
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "build": "tsc",
-    "postbuild": "node -e \"const pkg = require('./package.json'); const { scripts, devDependencies, ...output } = pkg; output.main = 'index.js'; require('fs').writeFileSync('./dist/package.json', JSON.stringify(output, null, 2))\""
+    "postbuild": "node -e \"const pkg = require('./package.json'); const { scripts, devDependencies, ...output } = pkg; output.main = 'index.js'; require('fs').writeFileSync('./dist/package.json', JSON.stringify(output, null, 2)); require('fs').copyFileSync('./README.md', './dist/README.md');\"",
+    "publish:npm": "cd dist && npm publish"
   },
   "dependencies": {},
   "devDependencies": {
