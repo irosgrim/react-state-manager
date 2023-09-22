@@ -1,0 +1,29 @@
+{
+  "name": "@irosgrim/react-state-manager",
+  "private": false,
+  "version": "0.0.3",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/",
+    "access": "public"
+  },
+  "scripts": {
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "build": "tsc",
+    "postbuild": "node -e \"const pkg = require('./package.json'); const { scripts, devDependencies, ...output } = pkg; output.main = 'index.js'; require('fs').writeFileSync('./dist/package.json', JSON.stringify(output, null, 2))\""
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/react": "^18.2.15",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "typescript": "^5.0.2"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  }
+}
