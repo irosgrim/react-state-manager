@@ -1,7 +1,7 @@
 {
   "name": "@irosgrim/react-state-manager",
   "private": false,
-  "version": "0.0.3",
+  "version": "0.0.1",
   "main": "dist/index.js",
   "license": "MIT",
   "publishConfig": {
