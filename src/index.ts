@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 export type Selector<T> = (state: State) => T;
 export type State = Record<string, any>;
 export type Listener = (state: State) => void;
 
-const shallowEqual = (objA: any, objB: any) => {
+export const shallowEqual = (objA: any, objB: any) => {
   if (Object.is(objA, objB)) return true;
 
-  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
+  if (typeof objA !== "object" || objA === null || typeof objB !== "object" || objB === null) {
     return false;
   }
 
@@ -53,9 +53,8 @@ export class Store {
 
 export const createHook = (store: Store) => {
   return <T>(selector: Selector<T>) => {
-    const [state, setState] = useState(() => selector(store.getState()));
-    
-    useEffect(() => {
+    const [state, setState] = useState!(() => selector(store.getState()));
+    useEffect!(() => {
       const listener = (newState: State) => {
         const newSelectedState = selector(newState);
         if (!shallowEqual(newSelectedState, state)) {
@@ -72,4 +71,3 @@ export const createHook = (store: Store) => {
     return state;
   };
 }
-

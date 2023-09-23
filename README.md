@@ -1,4 +1,4 @@
-A simple state manager using the observer pattern.
+A simple state manager using the observer pattern
 
 `npm install @irosgrim/react-state-manager`
 
@@ -6,9 +6,14 @@ or
 
 `yarn add @irosgrim/react-state-manager`
 
+
+[Check the live example](https://irosgrim.github.io/state-management/)
+
 ## How to use it with React.js?
 
-example:
+Define your default state and the store. 
+You can create multiple:
+
 ```js
 // store.ts
 import { Store, createHook } from "@irosgrim/react-state-manager"
@@ -35,14 +40,14 @@ const appState: AppState = {
     }
     const data: any[] = await req.json();
 
-    globalState.setState({
+    globalStore.setState({
       profile: {
         name: data[Math.floor(Math.random() * data.length)].name,
       }
     })
   },
   logout: () => {
-    globalState.setState({ profile: null });
+    globalStore.setState({ profile: null });
   },
 
 };
@@ -51,7 +56,10 @@ const appState: AppState = {
 globalStore.setState(appState);
 
 export const useGlobalStore = createHook(globalStore);
+```
+Use the store in your components:
 
+```js
 // in your components
 import { useState, useEffect } from "react";
 import { useGlobalStore, AppState } from "./store";
