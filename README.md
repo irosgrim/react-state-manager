@@ -9,6 +9,8 @@ or
 
 [Check the live example](https://irosgrim.github.io/state-management/)
 
+[Source of the example](https://github.com/irosgrim/state-management)
+
 ## How to use it with React.js?
 
 Define your default state and the store. 

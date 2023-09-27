@@ -4,6 +4,12 @@ export type Selector<T> = (state: State) => T;
 export type State = Record<string, any>;
 export type Listener = (state: State) => void;
 
+/**
+ * Used for shallow comparison of old state to new state
+ * @param objA old state of an object
+ * @param objB new state of an object
+ * @returns boolean
+ */
 export const shallowEqual = (objA: any, objB: any) => {
   if (Object.is(objA, objB)) return true;
 
@@ -51,13 +57,19 @@ export class Store {
   }
 }
 
-export const createHook = (store: Store) => {
+/**
+ * 
+ * @param store Store instance
+ * @param compareFn function used to do comparison between old state and new state. Default is shallowCompare
+ * @returns react hook
+ */
+export const createHook = (store: Store, compareFn: (objA: any, objB: any) => boolean = shallowEqual) => {
   return <T>(selector: Selector<T>) => {
     const [state, setState] = useState!(() => selector(store.getState()));
     useEffect!(() => {
       const listener = (newState: State) => {
         const newSelectedState = selector(newState);
-        if (!shallowEqual(newSelectedState, state)) {
+        if (!compareFn(newSelectedState, state)) {
           setState(newSelectedState);
         }
       };
