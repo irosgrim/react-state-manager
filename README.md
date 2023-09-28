@@ -16,7 +16,7 @@ or
 Define your default state and the store. 
 You can create multiple:
 
-```js
+```ts
 // store.ts
 import { Store, createHook } from "@irosgrim/react-state-manager"
 
@@ -26,6 +26,7 @@ export type AppState = {
   greet: (name: string) => string;
   login: () => void;
   logout: () => void;
+  currentState: () => AppState,
 };
 
 // initialize the store
@@ -51,7 +52,8 @@ const appState: AppState = {
   logout: () => {
     globalStore.setState({ profile: null });
   },
-
+  // if you want to use the current state in order to create the next state
+  currentState: () => globalStore.getState() as AppState,
 };
 
 // assign your default state
@@ -61,18 +63,19 @@ export const useGlobalStore = createHook(globalStore);
 ```
 Use the store in your components:
 
-```js
+```tsx
 // in your components
 import { useState, useEffect } from "react";
 import { useGlobalStore, AppState } from "./store";
 
 export const Profile = () => {
   // take only what you need
-  const { profile, login, logout } = useGlobalStore<Pick<AppState, "profile" | "login" | "logout">>((state) => (
+  const { profile, login, logout, currentState } = useGlobalStore<Pick<AppState, "profile" | "login" | "logout" | "currentState">>((state) => (
     {
       profile: state.profile,
       login: state.login,
       logout: state.logout,
+      currentState: state.currentState
     }
   ));
 
